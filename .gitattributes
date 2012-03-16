@@ -3,6 +3,7 @@
 build/cmake/make-dbg.sh -text
 build/cmake/make.sh -text
 build/cmake/nmake.bat -text
+build/cmake/vc10.bat -text
 build/cmake/vc8.bat -text
 build/cmake/vc9.bat -text
 build/cmake/xcode.sh -text
