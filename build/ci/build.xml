@@ -1,0 +1,55 @@
+<project name="${JOB_NAME}" default="all">
+  <property environment="env"/>
+  <property name="SOURCE_ROOT" value="${env.WORKSPACE}\${SCM_PATH_MODIFIER}"/>
+
+
+  <target name="all" depends="hourly"/>
+  <target name="hourly" depends="RebuildDebug,RebuildRelease"/>
+  <target name="clean" depends="CleanDebug,CleanRelease"/>
+
+  <target name="CleanDebug" if="solution_name">
+    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
+      <arg value="${solution_name}"/>
+      <arg value="/clean"/>
+      <arg value="Debug"/>
+    </exec>
+  </target>
+  <target name="CleanRelease" if="solution_name">
+    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
+      <arg value="${solution_name}"/>
+      <arg value="/clean"/>
+      <arg value="Release"/>
+    </exec>
+  </target>
+
+  <target name="RebuildDebug" depends="CleanDebug,BuildDebug" if="solution_name" />
+  <target name="RebuildRelease" depends="CleanRelease,BuildRelease" if="solution_name" />
+  
+  <target name="BuildDebug" if="solution_name">
+    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
+      <arg value="${solution_name}"/>
+      <arg value="/build"/>
+      <arg value="Debug"/>
+    </exec>
+  </target>
+  <target name="BuildRelease" if="solution_name">
+    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
+      <arg value="${solution_name}"/>
+      <arg value="/build"/>
+      <arg value="Release"/>
+    </exec>
+  </target>
+
+  <target name="RunDebug" depends="BuildDebug" if="solution_name">
+    <exec dir="${SOURCE_ROOT}\debug" executable="${SOURCE_ROOT}\debug\hello.exe" failonerror="true"/>
+  </target>
+  <target name="RunRelease" depends="BuildRelease" if="solution_name">
+    <exec dir="${SOURCE_ROOT}\release" executable="${SOURCE_ROOT}\release\hello.exe" failonerror="true"/>
+  </target>
+
+</project>
+
+
+
+
+

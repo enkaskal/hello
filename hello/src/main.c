@@ -8,6 +8,7 @@ main(void)
 {
 	int status;
 
+	/* output the txt */
 	status = output();
 
 	if ( status != EXIT_SUCCESS )
