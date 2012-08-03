@@ -11,8 +11,6 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/artifacts)
 set(PRODUCT_SOURCE_DIR ${CMAKE_SOURCE_DIR})
 set(CMAKE_BUILD_ROOT ${PRODUCT_SOURCE_DIR}/build/cmake)
 
-include (${CMAKE_BUILD_ROOT}/include/compilers.cmake)
-
 set( components "" )
 set( components ${components} hello )
 set( components ${components} message )
