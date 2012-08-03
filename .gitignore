@@ -1,12 +1,6 @@
 /*.ncb
 /*.suo
-build/cmake/build-make
-build/cmake/build-make-dbg
-build/cmake/build-nmake
-build/cmake/build-vc10
-build/cmake/build-vc8
-build/cmake/build-vc9
-build/cmake/build-xcode
+build/cmake/build-*
 /debug
 hello/*.user
 hello/Debug

@@ -9,6 +9,6 @@ add_definitions(-DEXPORT_API)
 
 add_library(${PROJECT_NAME} SHARED ${src_files})
 
-include ("${CMAKE_SOURCE_DIR}/project.cmake")
+include ("${CMAKE_BUILD_ROOT}/include/project.cmake")
 
-
+# EOF 

@@ -7,7 +7,10 @@ file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp")
 
 add_executable(${PROJECT_NAME} ${src_files})
 
-include ("${CMAKE_SOURCE_DIR}/project.cmake")
+include ("${CMAKE_BUILD_ROOT}/include/project.cmake")
+
+# EOF 
+
 
 
 

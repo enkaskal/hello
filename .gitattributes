@@ -2,6 +2,10 @@
 /CMakeLists.txt -text
 build/ci/build.bat -text
 build/ci/build.xml -text
+build/cmake/include/compilers.cmake -text
+build/cmake/include/install.cmake -text
+build/cmake/include/project.cmake -text
+build/cmake/include/socket.cmake -text
 build/cmake/make-dbg.sh -text
 build/cmake/make.sh -text
 build/cmake/nmake.bat -text
@@ -9,7 +13,6 @@ build/cmake/vc10.bat -text
 build/cmake/vc8.bat -text
 build/cmake/vc9.bat -text
 build/cmake/xcode.sh -text
-/compilers.cmake -text
 gtest/CHANGES -text
 gtest/CMakeLists.txt -text
 gtest/CONTRIBUTORS -text
@@ -177,16 +180,11 @@ hello-unittests/CMakeLists.txt -text
 hello-unittests/main.cc -text
 hello-unittests/message/test-message.cc -text
 hello-unittests/output/test-output.cc -text
-/hello.sln -text
 hello/CMakeLists.txt -text
-hello/hello.vcproj -text
 hello/src/main.c -text
 message/CMakeLists.txt -text
 message/include/message.h -text
-message/message.vcproj -text
 message/src/message.c -text
 output/CMakeLists.txt -text
 output/include/output.h -text
-output/output.vcproj -text
 output/src/output.c -text
-/project.cmake -text
