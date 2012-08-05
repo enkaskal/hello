@@ -2,6 +2,8 @@
 /CMakeLists.txt -text
 build/ci/build.bat -text
 build/ci/build.xml -text
+build/cmake/cygwin-dbg.sh -text
+build/cmake/cygwin.sh -text
 build/cmake/include/compilers.cmake -text
 build/cmake/include/install.cmake -text
 build/cmake/include/project.cmake -text
