@@ -1,55 +1,55 @@
 <project name="${JOB_NAME}" default="all">
   <property environment="env"/>
-  <property name="SOURCE_ROOT" value="${env.WORKSPACE}\${SCM_PATH_MODIFIER}"/>
-
+  <property name="SOURCE_ROOT" value="${env.WORKSPACE}/${SCM_PATH_MODIFIER}" />
+  <property name="BUILD_ROOT" value="${SOURCE_ROOT}/build/ci/build-hudson" />
 
   <target name="all" depends="hourly"/>
-  <target name="hourly" depends="RebuildDebug,RebuildRelease"/>
-  <target name="clean" depends="CleanDebug,CleanRelease"/>
-
-  <target name="CleanDebug" if="solution_name">
-    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
-      <arg value="${solution_name}"/>
-      <arg value="/clean"/>
-      <arg value="Debug"/>
-    </exec>
-  </target>
-  <target name="CleanRelease" if="solution_name">
-    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
-      <arg value="${solution_name}"/>
-      <arg value="/clean"/>
-      <arg value="Release"/>
-    </exec>
+  <target name="hourly" depends="RebuildDebug,RebuildRelease,TestDebug,TestRelease,RunDebug,RunRelease"/>
+  <target name="clean">
+    <delete dir="${BUILD_ROOT}" />
   </target>
 
-  <target name="RebuildDebug" depends="CleanDebug,BuildDebug" if="solution_name" />
-  <target name="RebuildRelease" depends="CleanRelease,BuildRelease" if="solution_name" />
+  <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder">
+    <classpath>
+      <pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/cmakeant.jar" />
+    </classpath>
+  </taskdef>
+
+  <target name="cmake">
+    <cmake srcdir="${SOURCE_ROOT}" bindir="${BUILD_ROOT}" buildtype="${buildtype}">
+      <generator name="Visual Studio 8 2005" platform="windows" />
+      <generator name="Unix Makefiles" />
+    </cmake>
+  </target>
+
+  <target name="RebuildDebug" depends="clean,BuildDebug" />
+  <target name="BuildDebug">
+    <antcall target="cmake">
+      <param name="buildtype" value="Debug" />
+    </antcall>
+  </target>
+
+  <target name="RebuildRelease" depends="clean,BuildRelease" />
+  <target name="BuildRelease">
+    <antcall target="cmake">
+      <param name="buildtype" value="Release" />
+    </antcall>
+  </target>
   
-  <target name="BuildDebug" if="solution_name">
-    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
-      <arg value="${solution_name}"/>
-      <arg value="/build"/>
-      <arg value="Debug"/>
-    </exec>
+  <target name="RunDebug" depends="BuildDebug">
+    <exec executable="${BUILD_ROOT}/artifacts/debug/hello_d.exe" failonerror="true" />
   </target>
-  <target name="BuildRelease" if="solution_name">
-    <exec dir="${SOURCE_ROOT}" executable="${env.DEVENV}" failonerror="true" vmlauncher="false">
-      <arg value="${solution_name}"/>
-      <arg value="/build"/>
-      <arg value="Release"/>
-    </exec>
+  <target name="RunRelease" depends="BuildRelease">
+    <exec executable="${BUILD_ROOT}/artifacts/release/hello.exe" failonerror="true" />
   </target>
-
-  <target name="RunDebug" depends="BuildDebug" if="solution_name">
-    <exec dir="${SOURCE_ROOT}\debug" executable="${SOURCE_ROOT}\debug\hello.exe" failonerror="true"/>
+  
+  <target name="TestDebug" depends="BuildDebug">
+    <exec executable="${BUILD_ROOT}/artifacts/debug/hello-unittests_d.exe" failonerror="true" />
   </target>
-  <target name="RunRelease" depends="BuildRelease" if="solution_name">
-    <exec dir="${SOURCE_ROOT}\release" executable="${SOURCE_ROOT}\release\hello.exe" failonerror="true"/>
+  <target name="TestRelease" depends="BuildRelease">
+    <exec executable="${BUILD_ROOT}/artifacts/release/hello-unittests.exe" failonerror="true" />
   </target>
 
 </project>
 
-
-
-
-
+<!-- e0f -->

@@ -187,6 +187,7 @@ hello/src/main.c -text
 message/CMakeLists.txt -text
 message/include/message.h -text
 message/src/message.c -text
+non-dist/ant/lib/cmakeant.jar -text
 output/CMakeLists.txt -text
 output/include/output.h -text
 output/src/output.c -text
