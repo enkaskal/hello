@@ -9,11 +9,7 @@
     <delete dir="${BUILD_ROOT}" />
   </target>
 
-  <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder">
-    <classpath>
-      <pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/cmakeant.jar" />
-    </classpath>
-  </taskdef>
+  <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder" />
 
   <target name="cmake">
     <cmake srcdir="${SOURCE_ROOT}" bindir="${BUILD_ROOT}" buildtype="${buildtype}">
