@@ -9,5 +9,5 @@ REM workspace is one directory up from its definition in hudson (i.e. one direct
 REM and then SCM_PATH_MODIFIER is one directory up from that
 set WORKSPACE=%~dp0..
 
-cmd /C "ant.bat -lib ../../non-dist/ant/lib -DSCM_PATH_MODIFIER=.. %* && exit %%ERRORLEVEL%%
+cmd /C "ant.bat -DSCM_PATH_MODIFIER=.. %* && exit %%ERRORLEVEL%%
 pause

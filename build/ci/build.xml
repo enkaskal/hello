@@ -1,15 +1,22 @@
 <project name="${JOB_NAME}" default="all">
-
-  <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder" />
-  <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
-
-  <condition property="platform" value="windows"><os family="windows" /></condition>
-  <condition property="platform" value="unix"><os family="unix" /></condition>
-
   <property environment="env"/>
   <property name="SOURCE_ROOT" value="${env.WORKSPACE}/${SCM_PATH_MODIFIER}" />
   <property name="BUILD_ROOT" value="${SOURCE_ROOT}/build/ci/build-ci" />
 
+  <condition property="platform" value="windows"><os family="windows" /></condition>
+  <condition property="platform" value="unix"><os family="unix" /></condition>
+
+  <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder">
+  	<classpath>
+  		<pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/cmakeant.jar" />
+  	</classpath>
+  </taskdef>
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+  	<classpath>
+  		<pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/ant-contrib-1.0b3.jar" />
+  	</classpath>
+  </taskdef>
+  
   <target name="all" depends="hourly" />
   <target name="hourly" depends="clean,build,test,run" />
 

@@ -9,5 +9,5 @@ export JOB_NAME=hello
 # and then SCM_PATH_MODIFIER is one directory up from that
 export WORKSPACE=`pwd`/..
 
-ant -lib ../../non-dist/ant/lib/ -DSCM_PATH_MODIFIER=.. $@
+ant -DSCM_PATH_MODIFIER=.. $@
 
