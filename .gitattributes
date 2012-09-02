@@ -1,6 +1,7 @@
 * text=auto !eol
 /CMakeLists.txt -text
 build/ci/build.bat -text
+build/ci/build.sh -text
 build/ci/build.xml -text
 build/cmake/cygwin-dbg.sh -text
 build/cmake/cygwin.sh -text
@@ -187,6 +188,7 @@ hello/src/main.c -text
 message/CMakeLists.txt -text
 message/include/message.h -text
 message/src/message.c -text
+non-dist/ant/lib/ant-contrib-1.0b3.jar -text
 non-dist/ant/lib/cmakeant.jar -text
 output/CMakeLists.txt -text
 output/include/output.h -text

@@ -1,49 +1,83 @@
 <project name="${JOB_NAME}" default="all">
-  <property environment="env"/>
-  <property name="SOURCE_ROOT" value="${env.WORKSPACE}/${SCM_PATH_MODIFIER}" />
-  <property name="BUILD_ROOT" value="${SOURCE_ROOT}/build/ci/build-hudson" />
-
-  <target name="all" depends="hourly"/>
-  <target name="hourly" depends="RebuildDebug,RebuildRelease,TestDebug,TestRelease,RunDebug,RunRelease"/>
-  <target name="clean">
-    <delete dir="${BUILD_ROOT}" />
-  </target>
 
   <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder" />
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+
+  <condition property="platform" value="windows"><os family="windows" /></condition>
+  <condition property="platform" value="unix"><os family="unix" /></condition>
+
+  <property environment="env"/>
+  <property name="SOURCE_ROOT" value="${env.WORKSPACE}/${SCM_PATH_MODIFIER}" />
+  <property name="BUILD_ROOT" value="${SOURCE_ROOT}/build/ci/build-ci" />
+
+  <target name="all" depends="hourly" />
+  <target name="hourly" depends="clean,build,test,run" />
+
+  <target name="clean">
+    <delete dir="${BUILD_ROOT}" />
+    <delete dir="${BUILD_ROOT}-dbg" />
+  </target>
 
   <target name="cmake">
-    <cmake srcdir="${SOURCE_ROOT}" bindir="${BUILD_ROOT}" buildtype="${buildtype}">
+    <cmake srcdir="${SOURCE_ROOT}" bindir="${bindir}" buildtype="${buildtype}">
       <generator name="Visual Studio 8 2005" platform="windows" />
       <generator name="Unix Makefiles" />
     </cmake>
   </target>
 
-  <target name="RebuildDebug" depends="clean,BuildDebug" />
+  <target name="build" depends="BuildDebug,BuildRelease" />
   <target name="BuildDebug">
+    <if><equals arg1="platform" arg2="windows" /><then>
+    	<var name="bindir" value="${BUILD_ROOT}" /></then>
+    <else>
+    	<var name="bindir" value="${BUILD_ROOT}-dbg" /></else>
+    </if>
     <antcall target="cmake">
       <param name="buildtype" value="Debug" />
+      <param name="bindir" value="${builddir}" />
     </antcall>
   </target>
-
-  <target name="RebuildRelease" depends="clean,BuildRelease" />
   <target name="BuildRelease">
+    <var name="bindir" value="${BUILD_ROOT}" />
     <antcall target="cmake">
       <param name="buildtype" value="Release" />
     </antcall>
   </target>
-  
+
+  <target name="run" depends="RunDebug,RunRelease" /> 
   <target name="RunDebug" depends="BuildDebug">
-    <exec executable="${BUILD_ROOT}/artifacts/debug/hello_d.exe" failonerror="true" />
+    <if><equals arg1="platform" arg2="windows" /><then>
+    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
+    <else>
+    	<var name="artifacts" value="${BUILD_ROOT}-dbg/artifacts" /></else>
+    </if>
+    <exec executable="${artifacts}/hello_d.exe" failonerror="true" />
   </target>
   <target name="RunRelease" depends="BuildRelease">
-    <exec executable="${BUILD_ROOT}/artifacts/release/hello.exe" failonerror="true" />
+    <if><equals arg1="platform" arg2="windows" /><then>
+    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/release" /></then>
+    <else>
+    	<var name="artifacts" value="${BUILD_ROOT}/artifacts" /></else>
+    </if>
+    <exec executable="${artifacts}/hello.exe" failonerror="true" />
   </target>
-  
+
+  <target name="test" depends="TestDebug,TestRelease" />
   <target name="TestDebug" depends="BuildDebug">
-    <exec executable="${BUILD_ROOT}/artifacts/debug/hello-unittests_d.exe" failonerror="true" />
+    <if><equals arg1="platform" arg2="windows" /><then>
+    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
+    <else>
+    	<var name="artifacts" value="${BUILD_ROOT}-dbg/artifacts" /></else>
+    </if>
+    <exec executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
   </target>
   <target name="TestRelease" depends="BuildRelease">
-    <exec executable="${BUILD_ROOT}/artifacts/release/hello-unittests.exe" failonerror="true" />
+    <if><equals arg1="platform" arg2="windows" /><then>
+    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/release" /></then>
+    <else>
+    	<var name="artifacts" value="${BUILD_ROOT}/artifacts" /></else>
+    </if>
+    <exec executable="${artifacts}/hello-unittests.exe" failonerror="true" />
   </target>
 
 </project>

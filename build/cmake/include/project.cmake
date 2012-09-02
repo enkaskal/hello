@@ -15,6 +15,10 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "lib")
 set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
 endif()
 
+if ( ${target_type} STREQUAL "EXECUTABLE" )
+set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".exe")
+endif()
+
 set(include_files "include")
 
 foreach (dependency ${dependencies})
