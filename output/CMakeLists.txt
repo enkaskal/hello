@@ -3,7 +3,7 @@ project(output)
 set(dependencies "")
 set(dependencies ${dependencies} message)
 
-file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp")
+file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp" "include/*.h")
 
 add_definitions(-DEXPORT_API)
 

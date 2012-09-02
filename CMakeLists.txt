@@ -17,6 +17,8 @@ set( components ${components} message )
 set( components ${components} output )
 set( components ${components} gtest )
 set( components ${components} hello-unittests )
+set( components ${components} hello-java )
+set( components ${components} output-jni )
 
 foreach (component ${components})
 	add_subdirectory ( ${component} )

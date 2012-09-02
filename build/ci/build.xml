@@ -50,7 +50,7 @@
     </antcall>
   </target>
 
-  <target name="run" depends="RunDebug,RunRelease" /> 
+  <target name="run" depends="RunDebug,RunRelease,RunJava" /> 
   <target name="RunDebug" depends="BuildDebug">
     <if><equals arg1="${platform}" arg2="windows" /><then>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
@@ -67,7 +67,11 @@
     </if>
     <exec executable="${artifacts}/hello.exe" failonerror="true" />
   </target>
-
+  <target name="RunJava" depends="BuildRelease">
+    <echo message="cp=${BUILD_ROOT}/artifacts/hello-java.jar" />
+    <java classpath="${BUILD_ROOT}/artifacts/hello-java.jar" classname="net.cryp7.range.hello.Hello" failonerror="true" />
+  </target>
+  
   <target name="test" depends="TestDebug,TestRelease" />
   <target name="TestDebug" depends="BuildDebug">
     <if><equals arg1="${platform}" arg2="windows" /><then>

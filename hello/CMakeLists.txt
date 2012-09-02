@@ -3,7 +3,7 @@ project(hello)
 set(dependencies "")
 set(dependencies ${dependencies} output)
 
-file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp")
+file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp" "include/*.h")
 
 add_executable(${PROJECT_NAME} ${src_files})
 

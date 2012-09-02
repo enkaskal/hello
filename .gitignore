@@ -3,6 +3,7 @@
 build/ci/build-*
 build/cmake/build-*
 /debug
+hello-java/bin
 hello/*.user
 hello/Debug
 hello/Release

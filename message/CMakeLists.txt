@@ -2,7 +2,7 @@ project(message)
 
 set(dependencies "")
 
-file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp")
+file(GLOB src_files "src/*.c" "src/*.cc" "src/*.cpp" "include/*.h")
 
 add_library(${PROJECT_NAME} STATIC ${src_files})
 

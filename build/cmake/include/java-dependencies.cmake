@@ -1,0 +1,6 @@
+if ( dependencies )
+	foreach(dependency ${dependencies})
+		get_target_property(PROJECT_JAR_FILE ${dependency} JAR_FILE)
+		set(CMAKE_JAVA_INCLUDE_PATH ${CMAKE_JAVA_INCLUDE_PATH} ${PROJECT_JAR_FILE})
+	endforeach()
+endif()

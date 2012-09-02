@@ -8,6 +8,7 @@ build/cmake/cygwin.sh -text
 build/cmake/eclipse.sh -text
 build/cmake/include/compilers.cmake -text
 build/cmake/include/install.cmake -text
+build/cmake/include/java-dependencies.cmake -text
 build/cmake/include/project.cmake -text
 build/cmake/include/socket.cmake -text
 build/cmake/make-dbg.sh -text
@@ -180,6 +181,12 @@ gtest/xcode/Samples/FrameworkSample/widget_test.cc -text
 gtest/xcode/Scripts/runtests.sh -text
 gtest/xcode/Scripts/versiongenerate.py -text
 gtest/xcode/gtest.xcodeproj/project.pbxproj -text
+hello-java/.classpath -text
+hello-java/.project -text
+hello-java/CMakeLists.txt -text
+hello-java/gen-headers.bat -text
+hello-java/src/net/cryp7/range/hello/Hello.java -text
+hello-java/src/net/cryp7/range/hello/NativeOutput.java -text
 hello-unittests/CMakeLists.txt -text
 hello-unittests/main.cc -text
 hello-unittests/message/test-message.cc -text
@@ -191,6 +198,9 @@ message/include/message.h -text
 message/src/message.c -text
 non-dist/ant/lib/ant-contrib-1.0b3.jar -text
 non-dist/ant/lib/cmakeant.jar -text
+output-jni/CMakeLists.txt -text
+output-jni/include/net_cryp7_range_hello_NativeOutput.h -text
+output-jni/src/NativeOutput.c -text
 output/CMakeLists.txt -text
 output/include/output.h -text
 output/src/output.c -text
