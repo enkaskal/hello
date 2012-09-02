@@ -52,8 +52,17 @@ public class NativeOutput
 						}
 						catch (UnsatisfiedLinkError excep)
 						{
-							System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput.so");
-							System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput-jni.so");
+							try
+							{
+								System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput.so");
+								System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput-jni.so");
+							}
+							catch (UnsatisfiedLinkError except)
+							{
+								System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput.so");
+								System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput-jni.so");
+							}
+							
 						}
 					}
 				}

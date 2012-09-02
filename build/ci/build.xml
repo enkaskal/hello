@@ -68,7 +68,6 @@
     <exec executable="${artifacts}/hello.exe" failonerror="true" />
   </target>
   <target name="RunJava" depends="BuildRelease">
-    <echo message="cp=${BUILD_ROOT}/artifacts/hello-java.jar" />
     <java classpath="${BUILD_ROOT}/artifacts/hello-java.jar" classname="net.cryp7.range.hello.Hello" failonerror="true" />
   </target>
   
