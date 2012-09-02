@@ -27,14 +27,13 @@
 
   <target name="build" depends="BuildDebug,BuildRelease" />
   <target name="BuildDebug">
-    <if><equals arg1="platform" arg2="windows" /><then>
+    <if><equals arg1="${platform}" arg2="windows" /><then>
     	<var name="bindir" value="${BUILD_ROOT}" /></then>
     <else>
     	<var name="bindir" value="${BUILD_ROOT}-dbg" /></else>
     </if>
     <antcall target="cmake">
       <param name="buildtype" value="Debug" />
-      <param name="bindir" value="${builddir}" />
     </antcall>
   </target>
   <target name="BuildRelease">
@@ -46,7 +45,7 @@
 
   <target name="run" depends="RunDebug,RunRelease" /> 
   <target name="RunDebug" depends="BuildDebug">
-    <if><equals arg1="platform" arg2="windows" /><then>
+    <if><equals arg1="${platform}" arg2="windows" /><then>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
     <else>
     	<var name="artifacts" value="${BUILD_ROOT}-dbg/artifacts" /></else>
@@ -54,7 +53,7 @@
     <exec executable="${artifacts}/hello_d.exe" failonerror="true" />
   </target>
   <target name="RunRelease" depends="BuildRelease">
-    <if><equals arg1="platform" arg2="windows" /><then>
+    <if><equals arg1="${platform}" arg2="windows" /><then>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts/release" /></then>
     <else>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts" /></else>
@@ -64,7 +63,7 @@
 
   <target name="test" depends="TestDebug,TestRelease" />
   <target name="TestDebug" depends="BuildDebug">
-    <if><equals arg1="platform" arg2="windows" /><then>
+    <if><equals arg1="${platform}" arg2="windows" /><then>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
     <else>
     	<var name="artifacts" value="${BUILD_ROOT}-dbg/artifacts" /></else>
@@ -72,7 +71,7 @@
     <exec executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
   </target>
   <target name="TestRelease" depends="BuildRelease">
-    <if><equals arg1="platform" arg2="windows" /><then>
+    <if><equals arg1="${platform}" arg2="windows" /><then>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts/release" /></then>
     <else>
     	<var name="artifacts" value="${BUILD_ROOT}/artifacts" /></else>

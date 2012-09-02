@@ -1,6 +1,6 @@
 /*.ncb
 /*.suo
-build/ci/build-hudson
+build/ci/build-*
 build/cmake/build-*
 /debug
 hello/*.user
