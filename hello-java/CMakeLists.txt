@@ -16,7 +16,7 @@ set(CMAKE_JAVA_TARGET_OUTPUT_DIR ${EXECUTABLE_OUTPUT_PATH})
 add_jar(${PROJECT_NAME} ${src_files})
 
 install_jar(${PROJECT_NAME} lib)
-#install(FILES ${PRODUCT_SOURCE_DIR}/distrib/blah.bat DESTINATION bin)
-#install(FILES ${PRODUCT_SOURCE_DIR}/distrib/blah.sh DESTINATION bin)
+install(FILES distrib/hello-java.bat DESTINATION bin)
+install(FILES distrib/hello-java.sh DESTINATION bin)
 
 include ("${CMAKE_BUILD_ROOT}/include/project.cmake")

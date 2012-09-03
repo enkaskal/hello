@@ -25,3 +25,5 @@ foreach (component ${components})
 	#message(STATUS "component: ${component}")
 endforeach ( component ${components} )
 
+include ("${CMAKE_BUILD_ROOT}/include/install.cmake")
+

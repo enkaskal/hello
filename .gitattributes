@@ -1,5 +1,7 @@
 * text=auto !eol
 /CMakeLists.txt -text
+/LICENSE.txt -text
+/README.txt -text
 build/ci/build.bat -text
 build/ci/build.sh -text
 build/ci/build.xml -text
@@ -184,6 +186,8 @@ gtest/xcode/gtest.xcodeproj/project.pbxproj -text
 hello-java/.classpath -text
 hello-java/.project -text
 hello-java/CMakeLists.txt -text
+hello-java/distrib/hello-java.bat -text
+hello-java/distrib/hello-java.sh -text
 hello-java/gen-headers.bat -text
 hello-java/src/net/cryp7/range/hello/Hello.java -text
 hello-java/src/net/cryp7/range/hello/NativeOutput.java -text
