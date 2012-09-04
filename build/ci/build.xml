@@ -14,7 +14,7 @@
   </taskdef>
 
   <target name="all" depends="hourly" />
-  <target name="hourly" depends="clean,gen,build,test,run" />
+  <target name="hourly" depends="clean,gen,build,test,run,package" />
 
   <target name="clean">
     <delete dir="${BUILD_DIR}" />
@@ -120,6 +120,12 @@
       </else>
     </if>
     <exec executable="${artifacts}/hello-unittests.exe" failonerror="true" />
+  </target>
+
+  <target name="package">
+    <exec dir="${BUILD_DIR}" executable="cmake" failonerror="true">
+      <arg line="--build . --target package" />
+    </exec>
   </target>
 
 </project>
