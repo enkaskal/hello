@@ -23,7 +23,12 @@
 #endif /* __cplusplus */
 #endif /* _WIN32 */
 
+
+
+#define OUTPUT_VERSION "trunk"
+
 API int output(void);
+typedef int (*output_ptr)(void);
 
 #endif /* OUTPUT_H */
 

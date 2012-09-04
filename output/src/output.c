@@ -10,6 +10,7 @@ int
 {
 	char * msg = message();
 
+	printf("liboutput version: %s\n", OUTPUT_VERSION);
 	printf("message: %s\n", msg);
 
 	return (EXIT_SUCCESS);

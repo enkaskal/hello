@@ -199,7 +199,9 @@ hello-unittests/main.cc -text
 hello-unittests/message/test-message.cc -text
 hello-unittests/output/test-output.cc -text
 hello/CMakeLists.txt -text
+hello/include/plugins.h -text
 hello/src/main.c -text
+hello/src/plugins.c -text
 message/CMakeLists.txt -text
 message/include/message.h -text
 message/src/message.c -text
