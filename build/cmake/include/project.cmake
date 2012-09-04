@@ -11,12 +11,12 @@ endif()
 endif()
 
 if ( ${target_type} STREQUAL "SHARED_LIBRARY" )
-set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "lib")
-set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
+#set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "lib")
+#set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".so")
 endif()
 
 if ( ${target_type} STREQUAL "EXECUTABLE" )
-set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".exe")
+#set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".exe")
 endif()
 
 set(include_files "include")

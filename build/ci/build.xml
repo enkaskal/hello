@@ -73,24 +73,29 @@
   <target name="run" depends="RunDebug,RunRelease,RunJava" />
   <target name="RunDebug" depends="BuildDebug">
     <if>
-      <equals arg1="${PLATFORM}" arg2="windows" /><then>
-    	<var name="artifacts" value="${BUILD_DIR}/artifacts/debug" /></then>
-    <else>
-    	<var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" /></else>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+    	<var name="artifacts" value="${BUILD_DIR}/artifacts/debug" />
+    	<exec dir="${artifacts}" executable="${artifacts}/hello_d.exe" failonerror="true" />
+      </then>
+      <else>
+    	<var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" />
+    	<exec dir="${artifacts}" executable="${artifacts}/hello_d" failonerror="true" />
+      </else>
     </if>
-    <exec dir="${artifacts}" executable="${artifacts}/hello_d.exe" failonerror="true" />
   </target>
   <target name="RunRelease" depends="BuildRelease">
     <if>
       <equals arg1="${PLATFORM}" arg2="windows" />
       <then>
         <var name="artifacts" value="${BUILD_DIR}/artifacts/release" />
+        <exec dir="${artifacts}" executable="${artifacts}/hello.exe" failonerror="true" />
       </then>
       <else>
         <var name="artifacts" value="${BUILD_DIR}/artifacts" />
+        <exec dir="${artifacts}" executable="${artifacts}/hello" failonerror="true" />
       </else>
     </if>
-    <exec dir="${artifacts}" executable="${artifacts}/hello.exe" failonerror="true" />
   </target>
   <target name="RunJava" depends="BuildRelease">
     <java classpath="${BUILD_DIR}/artifacts/hello-java.jar" classname="net.cryp7.range.hello.Hello" failonerror="true" />
@@ -102,24 +107,26 @@
       <equals arg1="${PLATFORM}" arg2="windows" />
       <then>
         <var name="artifacts" value="${BUILD_DIR}/artifacts/debug" />
+	<exec dir="${artifacts}" executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
       </then>
       <else>
         <var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" />
+        <exec dir="${artifacts}" executable="${artifacts}/hello-unittests_d" failonerror="true" />
       </else>
     </if>
-    <exec dir="${artifacts}" executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
   </target>
   <target name="TestRelease" depends="BuildRelease">
     <if>
       <equals arg1="${PLATFORM}" arg2="windows" />
       <then>
         <var name="artifacts" value="${BUILD_DIR}/artifacts/release" />
+        <exec dir="${artifacts}" executable="${artifacts}/hello-unittests.exe" failonerror="true" />
       </then>
       <else>
         <var name="artifacts" value="${BUILD_DIR}/artifacts" />
+        <exec dir="${artifacts}" executable="${artifacts}/hello-unittests" failonerror="true" />
       </else>
     </if>
-    <exec dir="${artifacts}" executable="${artifacts}/hello-unittests.exe" failonerror="true" />
   </target>
 
   <target name="package" depends="BuildRelease">
@@ -131,3 +138,5 @@
 </project>
 
 <!-- e0f -->
+
+
