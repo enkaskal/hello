@@ -6,7 +6,6 @@ public class NativeOutput
 {
 	public NativeOutput()
 	{
-		int meaning = 42;
 		output();
 		
 	} /* end default c-tor */
@@ -29,52 +28,60 @@ public class NativeOutput
 			}
 			catch (UnsatisfiedLinkError ex)
 			{
-				File pwd = new File(".");
-
 				try
 				{
-					System.load(pwd.getAbsoluteFile() + "/liboutput.so");
-					System.load(pwd.getAbsoluteFile() + "/liboutput-jni.so");
+					System.loadLibrary("output");
+					System.loadLibrary("output-jni");
 				}
 				catch (UnsatisfiedLinkError exc)
 				{
+					File pwd = new File(".");
+
 					try
 					{
-						System.load(pwd.getAbsoluteFile() + "/liboutput_d.so");
-						System.load(pwd.getAbsoluteFile() + "/liboutput-jni_d.so");
+						System.load(pwd.getAbsoluteFile() + "/liboutput.so");
+						System.load(pwd.getAbsoluteFile() + "/liboutput-jni.so");
 					}
 					catch (UnsatisfiedLinkError exce)
 					{
 						try
 						{
-							System.load(pwd.getAbsolutePath() + "/../lib/liboutput.so");
-							System.load(pwd.getAbsolutePath() + "/../lib/liboutput-jni.so");
+							System.load(pwd.getAbsoluteFile() + "/liboutput_d.so");
+							System.load(pwd.getAbsoluteFile() + "/liboutput-jni_d.so");
 						}
 						catch (UnsatisfiedLinkError excep)
 						{
 							try
 							{
-								System.load(pwd.getAbsolutePath() + "/../lib/liboutput_d.so");
-								System.load(pwd.getAbsolutePath() + "/../lib/liboutput-jni_d.so");
+								System.load(pwd.getAbsolutePath() + "/../lib/liboutput.so");
+								System.load(pwd.getAbsolutePath() + "/../lib/liboutput-jni.so");
 							}
 							catch (UnsatisfiedLinkError except)
 							{
 								try
 								{
-									System.load(pwd.getAbsolutePath() + "/../build/cmake/build-vc8/artifacts/debug/liboutput_d.so");
-									System.load(pwd.getAbsolutePath() + "/../build/cmake/build-vc8/artifacts/debug/liboutput-jni_d.so");
+									System.load(pwd.getAbsolutePath() + "/../lib/liboutput_d.so");
+									System.load(pwd.getAbsolutePath() + "/../lib/liboutput-jni_d.so");
 								}
 								catch (UnsatisfiedLinkError excepti)
 								{
 									try
 									{
-										System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput.so");
-										System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput-jni.so");
+										System.load(pwd.getAbsolutePath() + "/../build/cmake/build-vc8/artifacts/debug/liboutput_d.so");
+										System.load(pwd.getAbsolutePath() + "/../build/cmake/build-vc8/artifacts/debug/liboutput-jni_d.so");
 									}
 									catch (UnsatisfiedLinkError exceptio)
 									{
-										System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput.so");
-										System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput-jni.so");
+										try
+										{
+											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput.so");
+											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput-jni.so");
+										}
+										catch (UnsatisfiedLinkError exception)
+										{
+											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput.so");
+											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput-jni.so");
+										}
 									}
 								}
 							}

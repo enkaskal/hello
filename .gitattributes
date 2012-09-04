@@ -15,6 +15,7 @@ build/cmake/include/compilers.cmake -text
 build/cmake/include/install.cmake -text
 build/cmake/include/java-dependencies.cmake -text
 build/cmake/include/project.cmake -text
+build/cmake/include/rpm-post-install.sh -text
 build/cmake/include/socket.cmake -text
 build/cmake/make-dbg.sh -text
 build/cmake/make.sh -text
