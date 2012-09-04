@@ -19,7 +19,6 @@ endforeach()
 
 #message(STATUS "adding the following unittests: ${src_groups}")
 add_executable(${PROJECT_NAME} main.cc ${src_groups})
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
 
 include ("${CMAKE_BUILD_ROOT}/include/project.cmake")
 

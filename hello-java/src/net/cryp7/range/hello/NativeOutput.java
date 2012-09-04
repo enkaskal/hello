@@ -61,7 +61,6 @@ public class NativeOutput
 								}
 								catch (UnsatisfiedLinkError except)
 								{
-									System.out.println("attempting final load: " + pwd.getAbsoluteFile() + "/../build-ci/artifacts/release/");
 									System.load(pwd.getAbsoluteFile() + "/build-ci/artifacts/release/output.dll");
 									System.load(pwd.getAbsoluteFile() + "/build-ci/artifacts/release/output-jni.dll");
 								}
