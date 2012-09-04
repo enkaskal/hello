@@ -84,29 +84,29 @@ public class NativeOutput
 				
 				try
 				{
-					System.load(pwd.getAbsoluteFile() + "/output.dll");
-					System.load(pwd.getAbsoluteFile() + "/output-jni.dll");
+					System.load(pwd.getAbsoluteFile() + "/liboutput.so");
+					System.load(pwd.getAbsoluteFile() + "/liboutput-jni.so");
 				}
 				catch (UnsatisfiedLinkError ex)
 				{
 					try
 					{
-						System.load(pwd.getAbsoluteFile() + "/output_d.dll");
-						System.load(pwd.getAbsoluteFile() + "/output-jni_d.dll");
+						System.load(pwd.getAbsoluteFile() + "/liboutput_d.so");
+						System.load(pwd.getAbsoluteFile() + "/liboutput-jni_d.so");
 					}
 					catch (UnsatisfiedLinkError exc)
 					{
 						try
 						{
-							System.load(pwd.getAbsoluteFile() + "/../lib/output.dll");
-							System.load(pwd.getAbsoluteFile() + "/../lib/output-jni.dll");
+							System.load(pwd.getAbsoluteFile() + "/../lib/liboutput.so");
+							System.load(pwd.getAbsoluteFile() + "/../lib/liboutput-jni.so");
 						}
 						catch (UnsatisfiedLinkError exce)
 						{
 							try
 							{
-								System.load(pwd.getAbsoluteFile() + "/../lib/output_d.dll");
-								System.load(pwd.getAbsoluteFile() + "/../lib/output_d-jni.dll");
+								System.load(pwd.getAbsoluteFile() + "/../lib/liboutput_d.so");
+								System.load(pwd.getAbsoluteFile() + "/../lib/liboutput_d-jni.so");
 							}
 							catch (UnsatisfiedLinkError excep)
 							{
