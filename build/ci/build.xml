@@ -131,7 +131,7 @@
 
   <target name="package" depends="BuildRelease">
     <exec dir="${BUILD_DIR}" executable="cmake" failonerror="true">
-      <arg line="--build . --target package" />
+      <arg line="--build . --target package --config Release" />
     </exec>
   </target>
 

@@ -14,76 +14,104 @@ public class NativeOutput
 
 	static
 	{
-		try
-		{
-			System.loadLibrary("liboutput.so");
-			System.loadLibrary("liboutput-jni.so");
-		}
-		catch (UnsatisfiedLinkError e)
+		String os = System.getProperty("os.name").toUpperCase();
+		if ( os.startsWith("WIN") )
 		{
 			try
 			{
-				System.loadLibrary("liboutput_d.so");
-				System.loadLibrary("liboutput-jni_d.so");
+				System.loadLibrary("output");
+				System.loadLibrary("output-jni");
 			}
-			catch (UnsatisfiedLinkError ex)
+			catch (UnsatisfiedLinkError e)
 			{
+				File pwd = new File(".");
+				
 				try
 				{
-					System.loadLibrary("output");
-					System.loadLibrary("output-jni");
+					System.load(pwd.getAbsoluteFile() + "/output.dll");
+					System.load(pwd.getAbsoluteFile() + "/output-jni.dll");
 				}
-				catch (UnsatisfiedLinkError exc)
+				catch (UnsatisfiedLinkError ex)
 				{
-					File pwd = new File(".");
-
 					try
 					{
-						System.load(pwd.getAbsoluteFile() + "/liboutput.so");
-						System.load(pwd.getAbsoluteFile() + "/liboutput-jni.so");
+						System.load(pwd.getAbsoluteFile() + "/output_d.dll");
+						System.load(pwd.getAbsoluteFile() + "/output-jni_d.dll");
 					}
-					catch (UnsatisfiedLinkError exce)
+					catch (UnsatisfiedLinkError exc)
 					{
 						try
 						{
-							System.load(pwd.getAbsoluteFile() + "/liboutput_d.so");
-							System.load(pwd.getAbsoluteFile() + "/liboutput-jni_d.so");
+							System.load(pwd.getAbsoluteFile() + "/../lib/output.dll");
+							System.load(pwd.getAbsoluteFile() + "/../lib/output-jni.dll");
 						}
-						catch (UnsatisfiedLinkError excep)
+						catch (UnsatisfiedLinkError exce)
 						{
 							try
 							{
-								System.load(pwd.getAbsolutePath() + "/../lib/liboutput.so");
-								System.load(pwd.getAbsolutePath() + "/../lib/liboutput-jni.so");
+								System.load(pwd.getAbsoluteFile() + "/../lib/output_d.dll");
+								System.load(pwd.getAbsoluteFile() + "/../lib/output_d-jni.dll");
 							}
-							catch (UnsatisfiedLinkError except)
+							catch (UnsatisfiedLinkError excep)
 							{
 								try
 								{
-									System.load(pwd.getAbsolutePath() + "/../lib/liboutput_d.so");
-									System.load(pwd.getAbsolutePath() + "/../lib/liboutput-jni_d.so");
+									System.load(pwd.getAbsoluteFile() + "/../build/cmake/build-vc8/artifacts/debug/output_d.dll");
+									System.load(pwd.getAbsoluteFile() + "/../build/cmake/build-vc8/artifacts/debug/output-jni_d.dll");
 								}
-								catch (UnsatisfiedLinkError excepti)
+								catch (UnsatisfiedLinkError except)
 								{
-									try
-									{
-										System.load(pwd.getAbsolutePath() + "/../build/cmake/build-vc8/artifacts/debug/liboutput_d.so");
-										System.load(pwd.getAbsolutePath() + "/../build/cmake/build-vc8/artifacts/debug/liboutput-jni_d.so");
-									}
-									catch (UnsatisfiedLinkError exceptio)
-									{
-										try
-										{
-											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput.so");
-											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/release/liboutput-jni.so");
-										}
-										catch (UnsatisfiedLinkError exception)
-										{
-											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput.so");
-											System.load(pwd.getAbsolutePath() + "/build-ci/artifacts/liboutput-jni.so");
-										}
-									}
+									System.out.println("attempting final load: " + pwd.getAbsoluteFile() + "/../build-ci/artifacts/release/");
+									System.load(pwd.getAbsoluteFile() + "/build-ci/artifacts/release/output.dll");
+									System.load(pwd.getAbsoluteFile() + "/build-ci/artifacts/release/output-jni.dll");
 								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			try
+			{
+				System.loadLibrary("output");
+				System.loadLibrary("output-jni");
+			}
+			catch (UnsatisfiedLinkError e)
+			{
+				File pwd = new File(".");
+				
+				try
+				{
+					System.load(pwd.getAbsoluteFile() + "/output.dll");
+					System.load(pwd.getAbsoluteFile() + "/output-jni.dll");
+				}
+				catch (UnsatisfiedLinkError ex)
+				{
+					try
+					{
+						System.load(pwd.getAbsoluteFile() + "/output_d.dll");
+						System.load(pwd.getAbsoluteFile() + "/output-jni_d.dll");
+					}
+					catch (UnsatisfiedLinkError exc)
+					{
+						try
+						{
+							System.load(pwd.getAbsoluteFile() + "/../lib/output.dll");
+							System.load(pwd.getAbsoluteFile() + "/../lib/output-jni.dll");
+						}
+						catch (UnsatisfiedLinkError exce)
+						{
+							try
+							{
+								System.load(pwd.getAbsoluteFile() + "/../lib/output_d.dll");
+								System.load(pwd.getAbsoluteFile() + "/../lib/output_d-jni.dll");
+							}
+							catch (UnsatisfiedLinkError excep)
+							{
+								System.load(pwd.getAbsoluteFile() + "/build-ci/artifacts/liboutput.so");
+								System.load(pwd.getAbsoluteFile() + "/build-ci/artifacts/liboutput-jni.so");
 							}
 						}
 					}

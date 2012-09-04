@@ -14,6 +14,26 @@ main(void)
 	output_ptr fn;
 
 	/* open the kernel */
+#if defined(WIN32)
+	handle = load("output.dll");
+	if ( !handle )
+	{
+		handle = load("output_d.dll");
+		if ( !handle )
+		{
+			handle = load("../lib/output.dll");
+			if ( !handle )
+			{
+				handle = load(".../lib/output_d.dll");
+				if ( !handle )
+				{
+					printf("unable to load output plugin...fatal\n");
+					return ( EXIT_FAILURE );
+				}
+			}
+		}
+	}
+#else
 	handle = load("liboutput.so");
 	if ( !handle )
 	{
@@ -31,7 +51,8 @@ main(void)
 			}
 		}
 	}
-
+#endif /* WIN32 */
+	
 	/* lookup the output function */
 	fn = (output_ptr)lookup(handle, "output");
 
