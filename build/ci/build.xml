@@ -78,7 +78,7 @@
     <else>
     	<var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" /></else>
     </if>
-    <exec executable="${artifacts}/hello_d.exe" failonerror="true" />
+    <exec dir="${artifacts}" executable="${artifacts}/hello_d.exe" failonerror="true" />
   </target>
   <target name="RunRelease" depends="BuildRelease">
     <if>
@@ -90,7 +90,7 @@
         <var name="artifacts" value="${BUILD_DIR}/artifacts" />
       </else>
     </if>
-    <exec executable="${artifacts}/hello.exe" failonerror="true" />
+    <exec dir="${artifacts}" executable="${artifacts}/hello.exe" failonerror="true" />
   </target>
   <target name="RunJava" depends="BuildRelease">
     <java classpath="${BUILD_DIR}/artifacts/hello-java.jar" classname="net.cryp7.range.hello.Hello" failonerror="true" />
@@ -107,7 +107,7 @@
         <var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" />
       </else>
     </if>
-    <exec executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
+    <exec dir="${artifacts}" executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
   </target>
   <target name="TestRelease" depends="BuildRelease">
     <if>
@@ -119,7 +119,7 @@
         <var name="artifacts" value="${BUILD_DIR}/artifacts" />
       </else>
     </if>
-    <exec executable="${artifacts}/hello-unittests.exe" failonerror="true" />
+    <exec dir="${artifacts}" executable="${artifacts}/hello-unittests.exe" failonerror="true" />
   </target>
 
   <target name="package" depends="BuildRelease">
