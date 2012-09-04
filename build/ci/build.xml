@@ -31,7 +31,7 @@
         </exec>
       </then>
       <else>
-        <exec dir="${BUILD_ROOT}" executable="make-dbg.sh" failonerror="true" />
+        <exec dir="${BUILD_ROOT}" executable="${BUILD_ROOT}/make-dbg.sh" failonerror="true" />
       </else>
     </if>
   </target>
@@ -44,7 +44,7 @@
         </exec>
       </then>
       <else>
-        <exec dir="${BUILD_ROOT}" executable="make.sh" failonerror="true" />
+        <exec dir="${BUILD_ROOT}" executable="${BUILD_ROOT}/make.sh" failonerror="true" />
       </else>
     </if>
   </target>
