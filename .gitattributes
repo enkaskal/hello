@@ -5,6 +5,9 @@
 build/ci/build.bat -text
 build/ci/build.sh -text
 build/ci/build.xml -text
+build/ci/make-dbg.sh -text
+build/ci/make.sh -text
+build/ci/vc8.bat -text
 build/cmake/cygwin-dbg.sh -text
 build/cmake/cygwin.sh -text
 build/cmake/eclipse.sh -text
@@ -201,7 +204,6 @@ message/CMakeLists.txt -text
 message/include/message.h -text
 message/src/message.c -text
 non-dist/ant/lib/ant-contrib-1.0b3.jar -text
-non-dist/ant/lib/cmakeant.jar -text
 output-jni/CMakeLists.txt -text
 output-jni/include/net_cryp7_range_hello_NativeOutput.h -text
 output-jni/src/NativeOutput.c -text

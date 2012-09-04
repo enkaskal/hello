@@ -1,90 +1,123 @@
 <project name="${JOB_NAME}" default="all">
   <property environment="env"/>
   <property name="SOURCE_ROOT" value="${env.WORKSPACE}/${SCM_PATH_MODIFIER}" />
-  <property name="BUILD_ROOT" value="${SOURCE_ROOT}/build/ci/build-ci" />
+  <property name="BUILD_ROOT" value="${SOURCE_ROOT}/build/ci" />
+  <property name="BUILD_DIR" value="${BUILD_ROOT}/build-ci" />
 
-  <condition property="platform" value="windows"><os family="windows" /></condition>
-  <condition property="platform" value="unix"><os family="unix" /></condition>
+  <condition property="PLATFORM" value="windows"><os family="windows" /></condition>
+  <condition property="PLATFORM" value="unix"><os family="unix" /></condition>
 
-  <taskdef name="cmake" classname="org.iainhull.ant.CmakeBuilder">
-  	<classpath>
-  		<pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/cmakeant.jar" />
-  	</classpath>
-  </taskdef>
   <taskdef resource="net/sf/antcontrib/antcontrib.properties">
-  	<classpath>
-  		<pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/ant-contrib-1.0b3.jar" />
-  	</classpath>
+    <classpath>
+      <pathelement location="${SOURCE_ROOT}/non-dist/ant/lib/ant-contrib-1.0b3.jar" />
+    </classpath>
   </taskdef>
-  
+
   <target name="all" depends="hourly" />
-  <target name="hourly" depends="clean,build,test,run" />
+  <target name="hourly" depends="clean,gen,build,test,run" />
 
   <target name="clean">
-    <delete dir="${BUILD_ROOT}" />
-    <delete dir="${BUILD_ROOT}-dbg" />
+    <delete dir="${BUILD_DIR}" />
+    <delete dir="${BUILD_DIR}-dbg" />
   </target>
 
-  <target name="cmake">
-    <cmake srcdir="${SOURCE_ROOT}" bindir="${bindir}" buildtype="${buildtype}">
-      <generator name="Visual Studio 8 2005" platform="windows" />
-      <generator name="Unix Makefiles" />
-    </cmake>
+  <target name="gen" depends="GenDebug,GenRelease" />
+  <target name="GenDebug">
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+        <exec dir="${BUILD_ROOT}" executable="cmd" failonerror="true">
+          <arg line="/c vc8.bat" />
+        </exec>
+      </then>
+      <else>
+        <exec dir="${BUILD_ROOT}" executable="make-dbg.sh" failonerror="true" />
+      </else>
+    </if>
+  </target>
+  <target name="GenRelease">
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+        <exec dir="${BUILD_ROOT}" executable="cmd" failonerror="true">
+          <arg line="/c vc8.bat" />
+        </exec>
+      </then>
+      <else>
+        <exec dir="${BUILD_ROOT}" executable="make.sh" failonerror="true" />
+      </else>
+    </if>
   </target>
 
   <target name="build" depends="BuildDebug,BuildRelease" />
-  <target name="BuildDebug">
-    <if><equals arg1="${platform}" arg2="windows" /><then>
-    	<var name="bindir" value="${BUILD_ROOT}" /></then>
-    <else>
-    	<var name="bindir" value="${BUILD_ROOT}-dbg" /></else>
+  <target name="BuildDebug" depends="GenDebug">
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+        <var name="builddir" value="${BUILD_DIR}" />
+      </then>
+      <else>
+        <var name="builddir" value="${BUILD_DIR}-dbg" />
+      </else>
     </if>
-    <antcall target="cmake">
-      <param name="buildtype" value="Debug" />
-    </antcall>
+    <exec dir="${builddir}" executable="cmake" failonerror="true">
+      <arg line="--build . --config Debug" />
+    </exec>
   </target>
-  <target name="BuildRelease">
-    <var name="bindir" value="${BUILD_ROOT}" />
-    <antcall target="cmake">
-      <param name="buildtype" value="Release" />
-    </antcall>
+  <target name="BuildRelease" depends="GenRelease">
+    <exec dir="${BUILD_DIR}" executable="cmake" failonerror="true">
+      <arg line="--build . --config Release" />
+    </exec>
   </target>
 
-  <target name="run" depends="RunDebug,RunRelease,RunJava" /> 
+  <target name="run" depends="RunDebug,RunRelease,RunJava" />
   <target name="RunDebug" depends="BuildDebug">
-    <if><equals arg1="${platform}" arg2="windows" /><then>
-    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" /><then>
+    	<var name="artifacts" value="${BUILD_DIR}/artifacts/debug" /></then>
     <else>
-    	<var name="artifacts" value="${BUILD_ROOT}-dbg/artifacts" /></else>
+    	<var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" /></else>
     </if>
     <exec executable="${artifacts}/hello_d.exe" failonerror="true" />
   </target>
   <target name="RunRelease" depends="BuildRelease">
-    <if><equals arg1="${platform}" arg2="windows" /><then>
-    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/release" /></then>
-    <else>
-    	<var name="artifacts" value="${BUILD_ROOT}/artifacts" /></else>
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+        <var name="artifacts" value="${BUILD_DIR}/artifacts/release" />
+      </then>
+      <else>
+        <var name="artifacts" value="${BUILD_DIR}/artifacts" />
+      </else>
     </if>
     <exec executable="${artifacts}/hello.exe" failonerror="true" />
   </target>
   <target name="RunJava" depends="BuildRelease">
-    <java classpath="${BUILD_ROOT}/artifacts/hello-java.jar" classname="net.cryp7.range.hello.Hello" failonerror="true" />
+    <java classpath="${BUILD_DIR}/artifacts/hello-java.jar" classname="net.cryp7.range.hello.Hello" failonerror="true" />
   </target>
-  
+
   <target name="test" depends="TestDebug,TestRelease" />
   <target name="TestDebug" depends="BuildDebug">
-    <if><equals arg1="${platform}" arg2="windows" /><then>
-    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/debug" /></then>
-    <else>
-    	<var name="artifacts" value="${BUILD_ROOT}-dbg/artifacts" /></else>
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+        <var name="artifacts" value="${BUILD_DIR}/artifacts/debug" />
+      </then>
+      <else>
+        <var name="artifacts" value="${BUILD_DIR}-dbg/artifacts" />
+      </else>
     </if>
     <exec executable="${artifacts}/hello-unittests_d.exe" failonerror="true" />
   </target>
   <target name="TestRelease" depends="BuildRelease">
-    <if><equals arg1="${platform}" arg2="windows" /><then>
-    	<var name="artifacts" value="${BUILD_ROOT}/artifacts/release" /></then>
-    <else>
-    	<var name="artifacts" value="${BUILD_ROOT}/artifacts" /></else>
+    <if>
+      <equals arg1="${PLATFORM}" arg2="windows" />
+      <then>
+        <var name="artifacts" value="${BUILD_DIR}/artifacts/release" />
+      </then>
+      <else>
+        <var name="artifacts" value="${BUILD_DIR}/artifacts" />
+      </else>
     </if>
     <exec executable="${artifacts}/hello-unittests.exe" failonerror="true" />
   </target>
