@@ -17,7 +17,19 @@ main(void)
 	handle = load("liboutput.so");
 	if ( !handle )
 	{
-		handle = load("../lib/liboutput.so");
+		handle = load("liboutput_d.so");
+		if ( !handle )
+		{
+			handle = load("../lib/liboutput.so");
+			if ( !handle )
+			{
+				handle = load("../lib/liboutput_d.so");
+				if ( !handle )
+				{
+					return (EXIT_FAILURE);
+				}
+			}
+		}
 	}
 
 	/* lookup the output function */

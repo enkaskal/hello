@@ -18,11 +18,13 @@ load(const char *pluginName)
 	rv = dlopen(pluginName, RTLD_LAZY);
 #endif /* WIN32 */
 
+#if defined(_DEBUG)
 	/* see if plugin was successfully loaded */
 	if ( !rv )
 	{
-		printf("unable to open plugin %s", pluginName);
+		printf("unable to open plugin %s\n", pluginName);
 	}
+#endif /* _DEBUG */
 
 	return rv;
 
