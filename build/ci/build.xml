@@ -27,7 +27,7 @@
       <equals arg1="${PLATFORM}" arg2="windows" />
       <then>
         <exec dir="${BUILD_ROOT}" executable="cmd" failonerror="true">
-          <arg line="/c vc8.bat" />
+          <arg line="/c vc10.bat" />
         </exec>
       </then>
       <else>
@@ -40,7 +40,7 @@
       <equals arg1="${PLATFORM}" arg2="windows" />
       <then>
         <exec dir="${BUILD_ROOT}" executable="cmd" failonerror="true">
-          <arg line="/c vc8.bat" />
+          <arg line="/c vc10.bat" />
         </exec>
       </then>
       <else>
